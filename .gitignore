@@ -1,0 +1,8 @@
+.project
+.settings
+.gitlab-ci.yml
+dependency-reduced-pom.xml
+*.iml
+.idea
+target
+.classpath
