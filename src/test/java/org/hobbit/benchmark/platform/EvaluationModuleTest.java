@@ -30,6 +30,7 @@ public class EvaluationModuleTest {
             // create evaluation module (do not init it!)
             @SuppressWarnings("resource")
             EvaluationModule module = new EvaluationModule(tempDataFile, os, experimentUri);
+            module.setExpectedNumberOfQueries(4);
 
             // insert data
             module.evaluateResponse(new byte[10], new byte[10], 10, 15);
@@ -57,9 +58,9 @@ public class EvaluationModuleTest {
             stdDev = Math.sqrt(stdDev / values.length);
             expectedModel.addLiteral(experimentResource, PlatformBenchmarkConstants.queryRuntimeStdDev, stdDev);
 
-            Set<Statement> stmts = ModelComparisonHelper.getMissingStatements(expectedModel, model);
+            Set<Statement> stmts = ModelComparisonHelper.getMissingStatements(model, expectedModel);
             Assert.assertEquals(stmts.toString(), 0, stmts.size());
-            stmts = ModelComparisonHelper.getMissingStatements(model, expectedModel);
+            stmts = ModelComparisonHelper.getMissingStatements(expectedModel, model);
             Assert.assertEquals(stmts.toString(), 0, stmts.size());
         } finally {
             IOUtils.closeQuietly(os);

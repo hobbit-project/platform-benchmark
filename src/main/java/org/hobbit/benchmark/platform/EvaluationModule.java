@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
-import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.rdf.model.Model;
@@ -49,20 +48,7 @@ public class EvaluationModule extends AbstractEvaluationModule {
         super.init();
 
         // get number of queries
-        Map<String, String> env = System.getenv();
-        if (!env.containsKey(PlatformBenchmarkConstants.NUMBER_OF_QUERIES_PARAMETER_KEY)) {
-            throw new IllegalArgumentException(
-                    "Couldn't get \"" + PlatformBenchmarkConstants.NUMBER_OF_QUERIES_PARAMETER_KEY
-                            + "\" from the environment. Aborting.");
-        }
-        try {
-            expectedNumberOfQueries = Integer
-                    .parseInt(env.get(PlatformBenchmarkConstants.NUMBER_OF_QUERIES_PARAMETER_KEY));
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Couldn't get \""
-                    + PlatformBenchmarkConstants.NUMBER_OF_QUERIES_PARAMETER_KEY + "\" from the environment. Aborting.",
-                    e);
-        }
+        expectedNumberOfQueries = configuration.getInt(PlatformBenchmarkConstants.NUMBER_OF_QUERIES_PARAMETER_KEY, LOGGER);
 
         tempDataFile = File.createTempFile("eval", "data");
         os = new BufferedOutputStream(new FileOutputStream(tempDataFile));
@@ -155,4 +141,7 @@ public class EvaluationModule extends AbstractEvaluationModule {
         return model;
     }
 
+    public void setExpectedNumberOfQueries(int expectedNumberOfQueries) {
+        this.expectedNumberOfQueries = expectedNumberOfQueries;
+    }
 }
