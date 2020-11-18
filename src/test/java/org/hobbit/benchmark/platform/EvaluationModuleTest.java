@@ -12,9 +12,9 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.vocabulary.RDF;
-import org.hobbit.core.Constants;
 import org.hobbit.utils.test.ModelComparisonHelper;
 import org.hobbit.vocab.HOBBIT;
+import org.hobbit.vocab.HobbitExperiments;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class EvaluationModuleTest {
         try {
             File tempDataFile = File.createTempFile("eval", "data");
             os = new BufferedOutputStream(new FileOutputStream(tempDataFile));
-            String experimentUri = Constants.EXPERIMENT_URI_NS + "123";
+            String experimentUri = HobbitExperiments.getExperimentURI("123");
             // create evaluation module (do not init it!)
             @SuppressWarnings("resource")
             EvaluationModule module = new EvaluationModule(tempDataFile, os, experimentUri);
