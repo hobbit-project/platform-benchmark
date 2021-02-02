@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
@@ -114,7 +115,7 @@ public class EvaluationModule extends AbstractEvaluationModule {
             int pairsCount = 0;
             double diff;
             while (length == (Long.BYTES * 2)) {
-                buffer.position(0);
+                ((Buffer) buffer).position(0);
                 taskSentTimestamp = buffer.getLong();
                 responseReceivedTimestamp = buffer.getLong();
                 diff = responseReceivedTimestamp - taskSentTimestamp;
