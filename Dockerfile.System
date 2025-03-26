@@ -1,4 +1,4 @@
-FROM java
+FROM openjdk:8
 
 ADD target/platform-benchmark.jar /hobbit/platform-benchmark.jar
 
